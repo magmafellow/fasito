@@ -2,6 +2,7 @@
 
 import clsx from 'clsx'
 import { useState } from 'react'
+import '@/app/ui/css/toast.css'
 
 export function Toast({
   className,
@@ -17,10 +18,9 @@ export function Toast({
   const commonStyle = 'max-w-96 mb-6 py-4 px-6 hidden rounded-md toast'
   const defaultStyleDoubleTheme =
     'dark:bg-zinc-200 dark:text-zinc-800 bg-zinc-900 text-zinc-200'
-  const defaultStyle =
-    'bg-zinc-900 text-zinc-200'
+  const defaultStyle = 'bg-zinc-900 text-zinc-200'
 
-  if(!className) className = ''
+  if (!className) className = ''
 
   return (
     <div
@@ -28,7 +28,7 @@ export function Toast({
       className={clsx(commonStyle, {
         [defaultStyleDoubleTheme]: Boolean(doubleTheme) && !className,
         [defaultStyle]: !Boolean(doubleTheme) && !className,
-        [className]: Boolean(className)
+        [className]: Boolean(className),
       })}
     >
       {children}
@@ -36,11 +36,7 @@ export function Toast({
   )
 }
 
-export function ToastBox({
-  children,
-}: {
-  children: any
-}) {
+export function ToastBox({ children }: { children: any }) {
   return <div className="absolute right-10 bottom-10 max-w-80">{children}</div>
 }
 
@@ -71,4 +67,15 @@ export function ToastHire(event: any, id: string) {
     toast?.classList.remove('activated')
     toast?.classList.remove('descend')
   }, 3000)
+}
+
+export function ToastButton({ id }: { id: string }) {
+  return (
+    <button
+      className="py-4 px-5 font-semibold tracking-wide mr-5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-lg active:outline focus:outline transition"
+      onClick={(e) => ToastHire(undefined, id)}
+    >
+      toast me (one)
+    </button>
+  )
 }

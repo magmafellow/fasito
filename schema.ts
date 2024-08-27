@@ -1,10 +1,10 @@
 import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
 
-export const usersTable = pgTable('users', {
+export const usersTable = pgTable('users_table', {
   id: serial('id').primaryKey(),
   username: text('username').notNull(),
-  password: integer('password').notNull(),
-  gender: text('gender').notNull().unique(),
+  password: text('password').notNull(),
+  gender: text('gender'),
 })
 
 export type InsertUser = typeof usersTable.$inferInsert

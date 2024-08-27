@@ -1,0 +1,19 @@
+
+
+.toast {
+  opacity: 0;
+  transform: scale(0.75);
+  /* visibility: hidden; */
+
+  transition: 0.3s;
+}
+
+.toast.activated {
+  opacity: 1;
+  transform: scale(1);
+  /* visibility: visible; */
+}
+
+.toast.descend {
+  transform: translateY(100px);
+}
