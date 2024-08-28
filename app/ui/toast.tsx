@@ -3,19 +3,23 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 import '@/app/ui/css/toast.css'
+import { IoIosCloseCircle } from "react-icons/io";
+
 
 export function Toast({
   className,
+  close,
   children,
   id,
   doubleTheme,
 }: {
   className?: string
+  close?: boolean | undefined
   children?: any
   id: string
   doubleTheme?: boolean | undefined
 }) {
-  const commonStyle = 'max-w-96 mb-6 py-4 px-6 hidden rounded-md toast'
+  const commonStyle = 'relative max-w-96 mb-6 py-4 px-6 hidden rounded-md toast'
   const defaultStyleDoubleTheme =
     'dark:bg-zinc-200 dark:text-zinc-800 bg-zinc-900 text-zinc-200'
   const defaultStyle = 'bg-zinc-900 text-zinc-200'
@@ -32,6 +36,7 @@ export function Toast({
       })}
     >
       {children}
+      { close && <IoIosCloseCircle className='text-xl absolute top-1 right-1 cursor-pointer hover:text-red-400'/>}
     </div>
   )
 }
@@ -40,8 +45,12 @@ export function ToastBox({ children }: { children: any }) {
   return <div className="absolute right-10 bottom-10 max-w-80">{children}</div>
 }
 
-export function ToastHire(event: any, id: string) {
+export function ToastHire(event: any, id: string, timeDisappear: number = 3000) {
   const toast = document.querySelector(`#${id}`)
+
+  if(timeDisappear < 350) {
+    return null
+  }
 
   if (toast?.classList.contains('active')) {
     return null
@@ -58,7 +67,7 @@ export function ToastHire(event: any, id: string) {
   setTimeout(() => {
     toast?.classList.remove('activated')
     toast?.classList.add('descend')
-  }, 2700)
+  }, timeDisappear - 300)
 
   setTimeout(() => {
     toast?.classList.add('hidden')
@@ -66,16 +75,19 @@ export function ToastHire(event: any, id: string) {
     toast?.classList.remove('active')
     toast?.classList.remove('activated')
     toast?.classList.remove('descend')
-  }, 3000)
+  }, timeDisappear)
 }
 
-export function ToastButton({ id }: { id: string }) {
+export function ToastButton({ id, timeDisappear }: { id: string, timeDisappear?: number }) {
+  if(!timeDisappear) {
+    timeDisappear = 3000
+  }
   return (
     <button
       className="py-4 px-5 font-semibold tracking-wide mr-5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-lg active:outline focus:outline transition"
-      onClick={(e) => ToastHire(undefined, id)}
+      onClick={(e) => ToastHire(undefined, id, timeDisappear)}
     >
-      toast me (one)
+      toast me
     </button>
   )
 }
