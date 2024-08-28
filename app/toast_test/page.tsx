@@ -7,6 +7,7 @@ export default function Page() {
     <div className="min-h-screen pt-10 pl-20 bg-neutral-950 text-neutral-200">
       <ToastButton id='toast-01' />
       <ToastButton id='toast-02' />
+      <ToastButton id='freedurov' />
       
       <ToastBox>
         <Toast timeDisappear={1000} className='outline outline-1 outline-neutral-600 bg-neutral-950 text-neutral-300' id='toast-01'>
@@ -17,6 +18,9 @@ export default function Page() {
             <MdOutlineMessage />
             <div>You got it.</div>
           </div>
+        </Toast>
+        <Toast close className="bg-blue-800 text-blue-300" timeDisappear={7000} id='freedurov'>
+          <div>hey France Put out Pavel Durov!</div>
         </Toast>
       </ToastBox>
     </div>

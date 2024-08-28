@@ -58,7 +58,7 @@ export default function Page() {
         </button>
       </div>
       <ToastBox>
-        <Toast timeDisappear={15000} close={true} id="toast-error">
+        <Toast className='bg-red-800 text-red-200' timeDisappear={15000} close={true} id="toast-error">
           <div>{message?.error}</div>
         </Toast>
         <Toast timeDisappear={2000} id="toast-success">
