@@ -11,15 +11,18 @@ export function Toast({
   className,
   close,
   children,
+  timeDisappear,
   id,
   doubleTheme,
 }: {
   className?: string
   close?: boolean | undefined
   children?: any
+  timeDisappear?: number
   id: string
   doubleTheme?: boolean | undefined
 }) {
+  if(!timeDisappear) timeDisappear = 1500
   const commonStyle = 'relative max-w-96 mb-6 py-4 px-6 hidden rounded-md toast'
   const defaultStyleDoubleTheme =
     'dark:bg-zinc-200 dark:text-zinc-800 bg-zinc-900 text-zinc-200'
@@ -31,13 +34,14 @@ export function Toast({
     const toast = document.querySelector(`#${id}`)
     clearTimeout(Number(toast?.getAttribute('preDeactivateTimeout')))
     clearTimeout(Number(toast?.getAttribute('deactivateTimeout')))
-    preDeactivate(toast, 300)
-    deactivate(toast, 0)
+    preDeactivate(toast, 0)
+    deactivate(toast, 300)
   }
   
   return (
     <div
       id={id}
+      data-time-disappear={timeDisappear}
       className={clsx(commonStyle, {
         [defaultStyleDoubleTheme]: Boolean(doubleTheme) && !className,
         [defaultStyle]: !Boolean(doubleTheme) && !className,
@@ -55,12 +59,9 @@ export function ToastBox({ children }: { children: any }) {
   return <div className="absolute overflow-hidden right-10 bottom-0 p-1 pb-10 max-w-80">{children}</div>
 }
 
-export function ToastHire(event: any, id: string, timeDisappear: number = 3000) {
+export function ToastHire(event: any, id: string) {
   const toast = document.querySelector(`#${id}`)
-
-  if(timeDisappear < 350) {
-    return null
-  }
+  const timeDisappear = Number(toast?.getAttribute('data-time-disappear'))
 
   if (toast?.classList.contains('active')) {
     return null
@@ -72,14 +73,11 @@ export function ToastHire(event: any, id: string, timeDisappear: number = 3000) 
   deactivate(toast, timeDisappear)
 }
 
-export function ToastButton({ id, timeDisappear }: { id: string, timeDisappear?: number }) {
-  if(!timeDisappear) {
-    timeDisappear = 3000
-  }
+export function ToastButton({ id }: { id: string }) {
   return (
     <button
       className="py-4 px-5 font-semibold tracking-wide mr-5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-lg active:outline focus:outline transition"
-      onClick={(e) => ToastHire(undefined, id, timeDisappear)}
+      onClick={(e) => ToastHire(undefined, id)}
     >
       toast me
     </button>
@@ -105,7 +103,7 @@ function preDeactivate(toast: any, timeDisappear: number) {
   const preDeactivateTimeout = setTimeout(() => {
     toast?.classList.remove('activated')
     toast?.classList.add('descend')
-  }, timeDisappear - 300)
+  }, timeDisappear)
 
   toast.setAttribute('preDeactivateTimeout', String(preDeactivateTimeout))
 }
@@ -117,6 +115,6 @@ function deactivate(toast: any, timeDisappear: number) {
     toast?.classList.remove('active')
     toast?.classList.remove('activated')
     toast?.classList.remove('descend')
-  }, timeDisappear)
+  }, timeDisappear + 300)
   toast.setAttribute('deactivateTimeout', String(deactivateTimeout))
 }
