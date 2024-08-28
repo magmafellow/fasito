@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import '@/app/ui/css/toast.css'
 import { IoIosCloseCircle } from "react-icons/io";
+import { time } from 'console';
 
 
 export function Toast({
@@ -26,6 +27,14 @@ export function Toast({
 
   if (!className) className = ''
 
+  const onClickHandler = function(){
+    const toast = document.querySelector(`#${id}`)
+    clearTimeout(Number(toast?.getAttribute('preDeactivateTimeout')))
+    clearTimeout(Number(toast?.getAttribute('deactivateTimeout')))
+    preDeactivate(toast, 300)
+    deactivate(toast, 0)
+  }
+  
   return (
     <div
       id={id}
@@ -33,16 +42,17 @@ export function Toast({
         [defaultStyleDoubleTheme]: Boolean(doubleTheme) && !className,
         [defaultStyle]: !Boolean(doubleTheme) && !className,
         [className]: Boolean(className),
+        'pr-8': Boolean(close),
       })}
     >
       {children}
-      { close && <IoIosCloseCircle className='text-xl absolute top-1 right-1 cursor-pointer hover:text-red-400'/>}
+      { close && <IoIosCloseCircle className='text-xl absolute top-1.5 right-1.5 cursor-pointer hover:text-red-400' onClick={onClickHandler}/>}
     </div>
   )
 }
 
 export function ToastBox({ children }: { children: any }) {
-  return <div className="absolute right-10 bottom-10 max-w-80">{children}</div>
+  return <div className="absolute overflow-hidden right-10 bottom-0 p-1 pb-10 max-w-80">{children}</div>
 }
 
 export function ToastHire(event: any, id: string, timeDisappear: number = 3000) {
@@ -56,26 +66,10 @@ export function ToastHire(event: any, id: string, timeDisappear: number = 3000) 
     return null
   }
 
-  toast?.classList.add('flex')
-  toast?.classList.remove('hidden')
-  toast?.classList.add('active')
-
-  setTimeout(() => {
-    toast?.classList.add('activated')
-  }, 10)
-
-  setTimeout(() => {
-    toast?.classList.remove('activated')
-    toast?.classList.add('descend')
-  }, timeDisappear - 300)
-
-  setTimeout(() => {
-    toast?.classList.add('hidden')
-    toast?.classList.remove('flex')
-    toast?.classList.remove('active')
-    toast?.classList.remove('activated')
-    toast?.classList.remove('descend')
-  }, timeDisappear)
+  preActivate(toast)
+  activate(toast)
+  preDeactivate(toast, timeDisappear)
+  deactivate(toast, timeDisappear)
 }
 
 export function ToastButton({ id, timeDisappear }: { id: string, timeDisappear?: number }) {
@@ -90,4 +84,39 @@ export function ToastButton({ id, timeDisappear }: { id: string, timeDisappear?:
       toast me
     </button>
   )
+}
+
+
+function preActivate(toast: any) {
+  // toast.setAttribute('closed', 'no')
+  
+  toast?.classList.add('flex')
+  toast?.classList.remove('hidden')
+  toast?.classList.add('active')
+}
+
+function activate(toast: any) {
+  setTimeout(() => {
+    toast?.classList.add('activated')
+  }, 10)
+}
+
+function preDeactivate(toast: any, timeDisappear: number) {
+  const preDeactivateTimeout = setTimeout(() => {
+    toast?.classList.remove('activated')
+    toast?.classList.add('descend')
+  }, timeDisappear - 300)
+
+  toast.setAttribute('preDeactivateTimeout', String(preDeactivateTimeout))
+}
+
+function deactivate(toast: any, timeDisappear: number) {
+  const deactivateTimeout = setTimeout(() => {
+    toast?.classList.add('hidden')
+    toast?.classList.remove('flex')
+    toast?.classList.remove('active')
+    toast?.classList.remove('activated')
+    toast?.classList.remove('descend')
+  }, timeDisappear)
+  toast.setAttribute('deactivateTimeout', String(deactivateTimeout))
 }
