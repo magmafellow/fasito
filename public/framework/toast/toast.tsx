@@ -17,7 +17,7 @@ export function Toast({
   timeDisappear?: number
   id: string
 }) {
-  if (!timeDisappear) timeDisappear = 3000
+  if (!timeDisappear) timeDisappear = 1500
   const commonStyle = 'relative max-w-96 mb-6 py-4 px-6 hidden rounded-md toast'
   const defaultStyle = 'bg-zinc-900 text-zinc-200'
 
@@ -74,13 +74,13 @@ export function ToastHire(event: any, id: string) {
   deactivate(toast, timeDisappear)
 }
 
-export function ToastButton({ id, message }: { id: string, message: string }) {
+export function ToastButton({ id }: { id: string }) {
   return (
     <button
       className="py-4 px-5 font-semibold tracking-wide mr-5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-lg active:outline focus:outline transition"
       onClick={(e) => ToastHire(undefined, id)}
     >
-      {message}
+      toast me
     </button>
   )
 }
