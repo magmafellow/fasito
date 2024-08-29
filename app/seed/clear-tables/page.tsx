@@ -1,7 +1,7 @@
-import clearAllTables from "@/seed/clear-tables"
+// import clearAllTables from "@/seed/clear-tables"
 
 export default async function Page() {
-  const res = await clearAllTables()
+  // const res = await clearAllTables()
   
   return (
     <div className='min-h-screen text-emerald-300 flex justify-center items-center'>
