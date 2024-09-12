@@ -37,7 +37,7 @@ export default function Slider({ images }: { images: string[] }) {
 
   const indicators = []
   for (let i = 0; i < indicatorsCount; i++) {
-    indicators.push(<div className={`indicator ${index===i && 'active'}`} onClick={() => {
+    indicators.push(<div key={i} className={`indicator ${index===i && 'active'}`} onClick={() => {
       setDirection('jump')
       setIndex(i)
     }}></div>)
@@ -46,7 +46,7 @@ export default function Slider({ images }: { images: string[] }) {
   return (
     <div className="slider">
       <div className="slides">
-        {images.map(image => <img src={image} alt="slider image" />)}
+        {images.map((image, i) => <img key={i} src={image} alt="slider image" />)}
       </div>
       <button
         className="prev   bg-sky-600 hover:bg-sky-500 hover:text-white focus:outline outline-sky-300 transition py-2 px-4 rounded-xl"

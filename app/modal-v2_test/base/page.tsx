@@ -19,7 +19,7 @@ export default function Page() {
           <h2 className="text-3xl text-amber-300 font-medium mb-4">Action</h2>
           <div className="h-[1px] w-full bg-amber-500 mb-2.5"></div>
           <p className="mb-4 min-h-[150px]">
-            It makes it more strong when you're taking action.
+            It makes it more strong when you are taking action.
           </p>
           <div className="flex justify-around uppercase text-4xl font-black group/we ">
             <div className='group-hover/we:text-stone-900 transition'>x</div>
