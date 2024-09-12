@@ -1,10 +1,13 @@
 'use client'
 
 import { FaHeart } from 'react-icons/fa'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import clsx from 'clsx'
 
 export default function LikeButton({ id }: { id: string }) {
+  const [liked, setLiked] = useState(false)
+
   const tl = gsap.timeline()
 
   const tlBox = gsap.timeline()
@@ -41,11 +44,11 @@ export default function LikeButton({ id }: { id: string }) {
           scale: 0,
         },
         {
-          x: 150,
-          y: 78,
+          x: 50,
+          y: 25,
           width: 50,
           height: 50,
-          scale: 1.5,
+          scale: 0.3,
           duration: 0.7,
         }
       )
@@ -62,11 +65,11 @@ export default function LikeButton({ id }: { id: string }) {
           scale: 0,
         },
         {
-          x: -250,
-          y: -45,
+          x: -75,
+          y: -15,
           width: 50,
           height: 50,
-          scale: 1.5,
+          scale: 0.5,
           duration: 0.5,
         }
       )
@@ -83,11 +86,11 @@ export default function LikeButton({ id }: { id: string }) {
           scale: 0,
         },
         {
-          x: 250,
-          y: -175,
+          x: 70,
+          y: -60,
           width: 50,
           height: 50,
-          scale: 1,
+          scale: 0.3,
           duration: 0.6,
         }
       )
@@ -97,10 +100,15 @@ export default function LikeButton({ id }: { id: string }) {
   return (
     <div
       id={id}
-      className="like-wrapper border relative cursor-pointer flex justify-center items-center border-slate-400 w-[50px] h-[50px] rounded-full"
+      className="like-wrapper border relative cursor-pointer flex justify-center items-center border-slate-400 w-[42px] h-[42px] rounded-full"
       onClick={onClickHandler}
     >
-      <FaHeart className="main-heart text-3xl" />
+      <FaHeart
+        className={clsx('main-heart text-2xl', {
+          'text-red-700': liked,
+          'text-slate-200': !liked,
+        })}
+      />
       <FaHeart className="help-heart-01 absolute text-3xl w-0 h-0" />
       <FaHeart className="help-heart-02 absolute text-3xl w-0 h-0" />
       <FaHeart className="help-heart-03 absolute text-3xl w-0 h-0" />
