@@ -27,6 +27,7 @@ export default function ModalV2({
         isElemInParent(target, modalCloser)
       ) {
         modalWrapper.classList.remove('active')
+        setTimeout(() => modalWrapper.classList.remove('pre-active'), 170)
       }
     })
   }, [])
@@ -66,7 +67,9 @@ export default function ModalV2({
 export function ModalV2Activator({ id }: { id: string }) {
   const onClickHandler = () => {
     const modalWrapper = document.querySelector(`div#${id}`)
-    modalWrapper?.classList.add('active')
+    modalWrapper?.classList.add('pre-active')
+
+    setTimeout(() => modalWrapper?.classList.add('active'), 0)
   }
 
   return (
