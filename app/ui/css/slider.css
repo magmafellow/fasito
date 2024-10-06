@@ -1,0 +1,99 @@
+.slider {
+  position: relative;
+  width: 100%;
+  margin: auto;
+  /* overflow: hidden; */
+  padding: 4px 8px;
+}
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+}
+.slides {
+  height: 100%;
+}
+img.active {
+  display: block;
+  animation-duration: 1s;
+}
+img.active.forward {
+  animation-name: fadeForward;
+}
+img.active.back {
+  animation-name: fadeBack;
+}
+img.active.fade {
+  animation-name: fade;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.next {
+  right: 1em;
+}
+.prev {
+  left: 1em;
+}
+
+.indicator-box {
+  display: flex;
+  gap: 24px;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 888px;
+  background: #d0d0d0;
+  cursor: pointer;
+}
+.indicator.active {
+  background: #777777;
+}
+.indicator:hover {
+  transition: 0.3s;
+  background-color: #777777;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeForward {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.95) translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0px);
+  }
+}
+
+@keyframes fadeBack {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.95) translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0px);
+  }
+}
