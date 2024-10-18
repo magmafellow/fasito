@@ -1,21 +1,18 @@
 
 
 .modal-wrapper {
-  display: none;
-  /* opacity: 0.3;  without pre-active it does NOT work
-  transition: 1s; */
+  display: flex;
+  visibility: hidden;
+  opacity: 0.0;
+  transition: 0.37s;
 }
 
 .modal-wrapper.pre-active {
-  display: flex;
+  visibility: visible;
   /* opacity: 1; */
 }
 
-.modal {
-  opacity: 0.3;
-  transition: 0.17s;
-}
 
-.modal-wrapper.active .modal {
+.modal-wrapper.active {
   opacity: 1;
 }

@@ -27,7 +27,7 @@ export default function ModalV2({
         isElemInParent(target, modalCloser)
       ) {
         modalWrapper.classList.remove('active')
-        setTimeout(() => modalWrapper.classList.remove('pre-active'), 170)
+        setTimeout(() => modalWrapper.classList.remove('pre-active'), 0)
       }
     })
   }, [])
